@@ -10,8 +10,8 @@ RUN choco install \
     curl \
     visualstudio2019buildtools \
     --package-parameters \ 
-    "--add Microsoft.VisualStudio.Workload.VCToolsv \
-     --add Microsoft.VisualStudio.Workload.MSBuildTools \
+    "--add Microsoft.VisualStudio.Workload.NativeGame \
+     --add Microsoft.VisualStudio.Workload.NativeDesktop \
      --includeRecommended --quiet --locale en-US" \
     --confirm
 
