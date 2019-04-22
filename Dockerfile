@@ -13,10 +13,13 @@ RUN choco install \
     "--add Microsoft.VisualStudio.Workload.NativeGame \
      --add Microsoft.VisualStudio.Workload.NativeDesktop \
      --includeRecommended --quiet --locale en-US" \
-    --confirm
+    --confirm \
+	&& rmdir /S /Q C:\chococache
 
 # Separate call, env needs to be refreshed
-RUN choco install python3 --confirm && refreshenv
+RUN choco install python3 --confirm \
+	&& refreshenv \
+	&& rmdir /S /Q C:\chococache
 RUN @powershell -NoProfile -ExecutionPolicy Bypass -Command "$root = ((New-Object System.Net.WebClient).DownloadString('https://bootstrap.pypa.io/get-pip.py')) | python $root"
 
 RUN pip install \
@@ -26,5 +29,3 @@ RUN pip install \
     && conan user
 
 COPY ./conan-fallback-settings.yml %USERPROFILE%/.conan/settings.yml
-
-RUN rmdir /S /Q C:\chococache
