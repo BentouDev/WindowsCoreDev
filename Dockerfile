@@ -32,7 +32,8 @@ COPY ./conan-fallback-settings.yml %USERPROFILE%/.conan/settings.yml
 
 # Attempt to install Qt 5.12.1
 RUN git clone https://github.com/benlau/qtci.git \
-    && @powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-WebRequest -Uri https://download.qt.io/archive/qt/5.12/5.12.1/qt-opensource-windows-x86-5.12.1.exe -OutFile ./qt-installer.exe" \
+    #&& @powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-WebRequest -Uri https://download.qt.io/archive/qt/5.12/5.12.1/qt-opensource-windows-x86-5.12.1.exe -OutFile ./qt-installer.exe" \
+    && "C:\Program Files\Git\bin\bash.exe" --noprofile --norc -c "curl --progress-bar --verbose https://download.qt.io/archive/qt/5.12/5.12.1/qt-opensource-windows-x86-5.12.1.exe -o ./qt-installer.exe" \
     && "C:\Program Files\Git\bin\bash.exe" --noprofile --norc -c "source qtci/path.env && extract-qt-installer qt-installer.exe ~/Qt && ls -al ~/Qt" \
     && rm qt-installer.exe
 
